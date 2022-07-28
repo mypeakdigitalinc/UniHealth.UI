@@ -1,0 +1,33 @@
+{
+  "login_start": "Below are list of strings for login",
+  "login_et_user_email": "Enter user email",
+  "login_et_user_password": "Enter password",
+  "login_btn_forgot_password": "Forgot Password?",
+  "login_btn_sign_in": "Sign In",
+  "login_error_fill_fields": "Please fill in all fields",
+  "login_end": "------------------------------------------------------------------------------------",
+
+
+  "home_header_label": "Home",
+  "home_error": "Error",
+  "profile": "Profile",
+  "favorites": "Favorites",
+  "notifications": "Notifications",
+  "settings": "Settings",
+  "aboutus": "About Us",
+  "contactus": "Contact Us",
+  "logout": "Logout",
+  "map": "Map",
+  "signIn": "Sign In",
+  "email": "Email",
+  "emailHint": "Enter your email",
+  "password": "Password",
+  "passwordHint": "Enter your password",
+  "forgotPassword": "Forgot Password?",
+  "rememberMe": "Remember me",
+  "or": "- OR -",
+  "signInWith": "Sign in with",
+  "dontHaveAccount": "Dont have an account? ",
+  "signUp": "Sign Up"
+
+}
