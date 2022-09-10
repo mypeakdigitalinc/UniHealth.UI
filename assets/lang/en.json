@@ -10,13 +10,7 @@
 
   "home_header_label": "Home",
   "home_error": "Error",
-  "profile": "Profile",
-  "favorites": "Favorites",
-  "notifications": "Notifications",
-  "settings": "Settings",
-  "aboutus": "About Us",
-  "contactus": "Contact Us",
-  "logout": "Logout",
+
   "map": "Map",
   "signIn": "Sign In",
   "email": "Email",
@@ -28,6 +22,20 @@
   "or": "- OR -",
   "signInWith": "Sign in with",
   "dontHaveAccount": "Dont have an account? ",
-  "signUp": "Sign Up"
+  "signUp": "Sign Up",
+
+  "profile_header_label": "Profile",
+  "aboutus_header_label": "About Us",
+  "settings_header_label": "Settings",
+  "contactus_header_label": "Contact Us",
+  
+  "menu_home": "Home",
+  "menu_profile": "Profile",
+  "menu_favorites": "Favorites",
+  "menu_notifications": "Notifications",
+  "menu_settings": "Settings",
+  "menu_aboutus": "About Us",
+  "menu_contactus": "Contact Us",
+  "menu_logout": "Logout"
 
 }

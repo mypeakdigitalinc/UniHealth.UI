@@ -114,12 +114,13 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AppIconWidget(image: 'assets/icons/ic_appicon.png'),
+            const AppIconWidget(image: Assets.appLogoImg),
             SizedBox(height: 24.0),
             _buildUserIdField(),
             _buildPasswordField(),
             _buildForgotPasswordButton(),
-            _buildSignInButton()
+            //_buildSignInButton()
+            _buildLoginButton()
           ],
         ),
       ),
@@ -200,6 +201,45 @@ class _LoginScreenState extends State<LoginScreen> {
           _showErrorMessage('Please fill in all fields');
         }
       },
+    );
+  }
+
+  Widget _buildLoginButton() {
+    return SizedBox(
+      height: 64,
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(
+            Colors.white,
+          ),
+          elevation: MaterialStateProperty.all(6),
+          shape: MaterialStateProperty.all(
+            const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
+          ),
+        ),
+        child: Text(
+          AppLocalizations.of(context).translate('login_btn_sign_in'),
+          style: const TextStyle(
+            fontFamily: 'PT-Sans',
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        onPressed: () async {
+          if (_store.canLogin) {
+            DeviceUtils.hideKeyboard(context);
+            _store.login();
+          } else {
+            _showErrorMessage('Please fill in all fields');
+          }
+        },
+      ),
     );
   }
 

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../models/nav_item.dart';
 import '../models/user.dart';
 import '../utils/locale/app_localizations.dart';
+import '../utils/routes/routes.dart';
 
 class NavDrawerWidget extends StatelessWidget {
   const NavDrawerWidget({Key? key}) : super(key: key);
@@ -28,30 +29,45 @@ class NavDrawerWidget extends StatelessWidget {
                     const SizedBox(height: 24),
                     buildMenuItem(
                       context,
-                      item: NavItem.profile,
-                      text: AppLocalizations.of(context).translate('profile'),
+                      route: Routes.home,
+                      text: AppLocalizations.of(context).translate('menu_home'),
+                      icon: Icons.home,
+                    ),
+                    const SizedBox(height: 24),
+                    buildMenuItem(
+                      context,
+                      route: Routes.profile,
+                      text: AppLocalizations.of(context)
+                          .translate('menu_profile'),
                       icon: Icons.manage_accounts,
                     ),
                     const SizedBox(height: 16),
                     buildMenuItem(
                       context,
-                      item: NavItem.favourites,
-                      text: AppLocalizations.of(context).translate('favorites'),
+                      route: Routes.erecords,
+                      text: 'E-Records',
                       icon: Icons.favorite_border,
                     ),
                     const SizedBox(height: 16),
                     buildMenuItem(
                       context,
-                      item: NavItem.notifications,
-                      text: AppLocalizations.of(context)
-                          .translate('notifications'),
-                      icon: Icons.notifications_outlined,
+                      route: Routes.eregistration,
+                      text: 'E-Registration',
+                      icon: Icons.favorite_border,
                     ),
                     const SizedBox(height: 16),
                     buildMenuItem(
                       context,
-                      item: NavItem.settings,
-                      text: AppLocalizations.of(context).translate('settings'),
+                      route: Routes.eworkflow,
+                      text: 'E-Workflow',
+                      icon: Icons.favorite_border,
+                    ),
+                    const SizedBox(height: 16),
+                    buildMenuItem(
+                      context,
+                      route: Routes.settings,
+                      text: AppLocalizations.of(context)
+                          .translate('menu_settings'),
                       icon: Icons.update,
                     ),
                     const SizedBox(height: 24),
@@ -59,22 +75,25 @@ class NavDrawerWidget extends StatelessWidget {
                     const SizedBox(height: 24),
                     buildMenuItem(
                       context,
-                      item: NavItem.aboutus,
-                      text: AppLocalizations.of(context).translate('aboutus'),
+                      route: Routes.aboutus,
+                      text: AppLocalizations.of(context)
+                          .translate('menu_aboutus'),
                       icon: Icons.info,
                     ),
                     const SizedBox(height: 16),
                     buildMenuItem(
                       context,
-                      item: NavItem.contactus,
-                      text: AppLocalizations.of(context).translate('contactus'),
+                      route: Routes.home,
+                      text: AppLocalizations.of(context)
+                          .translate('menu_contactus'),
                       icon: Icons.contact_support,
                     ),
                     const SizedBox(height: 16),
                     buildMenuItem(
                       context,
-                      item: NavItem.logout,
-                      text: AppLocalizations.of(context).translate('logout'),
+                      route: Routes.logout,
+                      text:
+                          AppLocalizations.of(context).translate('menu_logout'),
                       icon: Icons.logout,
                     ),
                   ],
@@ -87,7 +106,7 @@ class NavDrawerWidget extends StatelessWidget {
 
   Widget buildMenuItem(
     BuildContext context, {
-    required NavItem item,
+    required String route,
     required String text,
     required IconData icon,
   }) {
@@ -105,15 +124,17 @@ class NavDrawerWidget extends StatelessWidget {
         selectedTileColor: Colors.white24,
         leading: Icon(icon, color: color),
         title: Text(text, style: TextStyle(color: color, fontSize: 16)),
-        onTap: () => selectItem(context, item),
+        onTap: () => selectItem(context, route),
       ),
     );
   }
 
-  void selectItem(BuildContext context, NavItem item) {
+  void selectItem(BuildContext context, String item) {
     Future.delayed(const Duration(milliseconds: 0), () {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(item.name, (Route<dynamic> route) => false);
+      // Navigator.of(context)
+      //     .pushNamedAndRemoveUntil(item.name, (Route<dynamic> route) => false);
+
+      Navigator.of(context).pushReplacementNamed(item);
     });
   }
 
@@ -126,7 +147,7 @@ class NavDrawerWidget extends StatelessWidget {
       Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => selectItem(context, NavItem.header),
+          onTap: () => selectItem(context, Routes.profile),
           child: Container(
             padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
             child: Row(

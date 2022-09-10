@@ -26,7 +26,8 @@ class SharedPreferenceHelper {
 
   // Login:---------------------------------------------------------------------
   Future<bool> get isLoggedIn async {
-    return _sharedPreference.getBool(Preferences.is_logged_in) ?? false;
+    return false;
+    // _sharedPreference.getBool(Preferences.is_logged_in) ?? false;
   }
 
   Future<bool> saveIsLoggedIn(bool value) async {

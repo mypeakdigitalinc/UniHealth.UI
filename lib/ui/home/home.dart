@@ -14,7 +14,7 @@ import '../../utils/routes/routes.dart';
 import '../../widgets/custom_progress_indicator_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
