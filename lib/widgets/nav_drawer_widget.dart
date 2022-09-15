@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../models/nav_item.dart';
 import '../models/user.dart';
 import '../utils/locale/app_localizations.dart';
 import '../utils/routes/routes.dart';
@@ -40,27 +38,6 @@ class NavDrawerWidget extends StatelessWidget {
                       text: AppLocalizations.of(context)
                           .translate('menu_profile'),
                       icon: Icons.manage_accounts,
-                    ),
-                    const SizedBox(height: 16),
-                    buildMenuItem(
-                      context,
-                      route: Routes.erecords,
-                      text: 'E-Records',
-                      icon: Icons.favorite_border,
-                    ),
-                    const SizedBox(height: 16),
-                    buildMenuItem(
-                      context,
-                      route: Routes.eregistration,
-                      text: 'E-Registration',
-                      icon: Icons.favorite_border,
-                    ),
-                    const SizedBox(height: 16),
-                    buildMenuItem(
-                      context,
-                      route: Routes.eworkflow,
-                      text: 'E-Workflow',
-                      icon: Icons.favorite_border,
                     ),
                     const SizedBox(height: 16),
                     buildMenuItem(

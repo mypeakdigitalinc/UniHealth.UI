@@ -4,10 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:unihealth/widgets/main_app_bar_widget.dart';
+import 'package:unihealth/widgets/nav_bottom_widget.dart';
 import 'package:unihealth/widgets/nav_drawer_widget.dart';
+import 'package:vertical_card_pager/vertical_card_pager.dart';
 
+import '../../constants/assets.dart';
 import '../../data/sharedpref/constants/preferences.dart';
 import '../../stores/language/language_store.dart';
+import '../../stores/nav/nav_store.dart';
 import '../../stores/theme/theme_store.dart';
 import '../../utils/locale/app_localizations.dart';
 import '../../utils/routes/routes.dart';
@@ -57,10 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // app bar methods:-----------------------------------------------------------
   PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Text(AppLocalizations.of(context).translate('home_header_label')),
-      //actions: _buildActions(context),
-    );
+    return MainAppBarWidget(
+        AppLocalizations.of(context).translate('home_header_label'));
   }
 
   List<Widget> _buildActions(BuildContext context) {
@@ -124,11 +127,76 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildMainContent() {
     return Observer(
       builder: (context) {
-        return CustomProgressIndicatorWidget();
+        return Material(child: _buildContent());
         // return _postStore.loading
         //     ? CustomProgressIndicatorWidget()
         //     : Material(child: _buildListView());
       },
+    );
+  }
+
+  Widget _buildContent() {
+    final List<String> titles = [
+      "EMR",
+      "OPR",
+      "CWF",
+    ];
+    final List<Widget> images = [
+      SizedBox.expand(
+        child: Image.asset(
+          Assets.imgResource1,
+          fit: BoxFit.cover,
+        ),
+      ),
+      SizedBox.expand(
+        child: Image.asset(
+          Assets.imgResource2,
+          fit: BoxFit.cover,
+        ),
+      ),
+      SizedBox.expand(
+        child: Image.asset(
+          Assets.imgResource3,
+          fit: BoxFit.cover,
+        ),
+      ),
+    ];
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              child: VerticalCardPager(
+                  titles: titles, // required
+                  images: images, // required
+                  textStyle: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold), // optional
+                  onPageChanged: (page) {
+                    // optional
+                  },
+                  onSelectedItem: (index) {
+                    final provider = Provider.of<NavStore>(context);
+                    switch (index) {
+                      case 0:
+                        provider.setNavigationItem(context, Routes.erecords);
+                        break;
+                      case 1:
+                        provider.setNavigationItem(
+                            context, Routes.eregistration);
+                        break;
+                      case 2:
+                        provider.setNavigationItem(context, Routes.eworkflow);
+                        break;
+                    } // optional
+                  },
+                  initialPage: 0, // optional
+                  align: ALIGN.CENTER // optional
+                  ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

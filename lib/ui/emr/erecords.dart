@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/nav_bottom_widget.dart';
 import '../../widgets/nav_drawer_widget.dart';
 
 class ERecordsScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class _ERecordsScreenState extends State<ERecordsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       endDrawer: const NavDrawerWidget(),
+      bottomNavigationBar: const NavBottomWidget(),
       appBar: _buildAppBar(),
       body: _buildBody(),
     );

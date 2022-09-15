@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart';
-
+import 'package:unihealth/utils/routes/routes.dart';
 import '../../data/repository.dart';
-import '../../models/nav_item.dart';
 
-class NavStore extends ChangeNotifier with Store {
+class NavStore extends ChangeNotifier {
   final Repository _repository;
   NavStore(Repository repository) : _repository = repository {
     loadSettings();
   }
   // repository instance
 
-  NavItem _navigationItem = NavItem.profile;
+  String _currentRoute = Routes.home;
 
-  NavItem get navigationItem => _navigationItem;
+  String get currentRoute => _currentRoute;
 
-  void setNavigationItem(BuildContext context, NavItem navigationItem) {
-    _navigationItem = navigationItem;
+  void setNavigationItem(BuildContext context, String route) {
+    _currentRoute = route;
     notifyListeners();
     Navigator.restorablePushNamed(
       context,
-      navigationItem.name,
+      route,
     );
   }
 

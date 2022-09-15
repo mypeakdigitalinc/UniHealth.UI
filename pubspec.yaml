@@ -42,6 +42,7 @@ dependencies:
   validators: ^3.0.0
   get_it: ^7.2.0
   google_fonts: ^3.0.1
+  vertical_card_pager: ^1.5.0
   flutter_localizations:
     sdk: flutter
 
