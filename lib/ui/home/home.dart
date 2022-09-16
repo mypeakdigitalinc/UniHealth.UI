@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //late PostStore _postStore;
   late ThemeStore _themeStore;
   late LanguageStore _languageStore;
+  late NavStore _navStore;
 
   @override
   void initState() {
@@ -43,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // initializing stores
     _languageStore = Provider.of<LanguageStore>(context);
     _themeStore = Provider.of<ThemeStore>(context);
+    _navStore = Provider.of<NavStore>(context);
     //_postStore = Provider.of<PostStore>(context);
 
     // check to see if already called api
@@ -176,17 +178,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     // optional
                   },
                   onSelectedItem: (index) {
-                    final provider = Provider.of<NavStore>(context);
                     switch (index) {
                       case 0:
-                        provider.setNavigationItem(context, Routes.erecords);
+                        _navStore.setNavigationItem(context, Routes.erecords);
                         break;
                       case 1:
-                        provider.setNavigationItem(
+                        _navStore.setNavigationItem(
                             context, Routes.eregistration);
                         break;
                       case 2:
-                        provider.setNavigationItem(context, Routes.eworkflow);
+                        _navStore.setNavigationItem(context, Routes.eworkflow);
                         break;
                     } // optional
                   },

@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 import 'package:unihealth/utils/routes/routes.dart';
 import '../../data/repository.dart';
 
-class NavStore extends ChangeNotifier {
+part 'nav_store.g.dart';
+
+class NavStore = _NavStore with _$NavStore;
+
+abstract class _NavStore with Store {
   final Repository _repository;
-  NavStore(Repository repository) : _repository = repository {
+  _NavStore(Repository repository) : _repository = repository {
     loadSettings();
   }
   // repository instance
-
+  @observable
   String _currentRoute = Routes.home;
 
   String get currentRoute => _currentRoute;
 
+  @action
   void setNavigationItem(BuildContext context, String route) {
     _currentRoute = route;
-    notifyListeners();
     Navigator.restorablePushNamed(
       context,
       route,
@@ -27,6 +32,5 @@ class NavStore extends ChangeNotifier {
   /// settings from the service.
   Future<void> loadSettings() async {
     // Important! Inform listeners a change has occurred.
-    notifyListeners();
   }
 }
