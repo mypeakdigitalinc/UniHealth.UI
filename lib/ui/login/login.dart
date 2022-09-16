@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:unihealth/stores/auth/azure_ad_b2c_store.dart';
 
 import '../../constants/assets.dart';
 import '../../data/sharedpref/constants/preferences.dart';
@@ -29,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   //stores:---------------------------------------------------------------------
   late ThemeStore _themeStore;
+  late AzureAdB2cStore _azureAdB2cStore;
 
   //focus node:-----------------------------------------------------------------
   late FocusNode _passwordFocusNode;
@@ -46,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _themeStore = Provider.of<ThemeStore>(context);
+    _azureAdB2cStore = Provider.of<AzureAdB2cStore>(context);
   }
 
   @override
@@ -174,8 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildForgotPasswordButton() {
     return Align(
       alignment: FractionalOffset.centerRight,
-      child: FlatButton(
-        padding: EdgeInsets.all(0.0),
+      child: ElevatedButton(
         child: Text(
           AppLocalizations.of(context).translate('login_btn_forgot_password'),
           style: Theme.of(context)
@@ -232,12 +234,13 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         onPressed: () async {
-          if (_store.canLogin) {
-            DeviceUtils.hideKeyboard(context);
-            _store.login();
-          } else {
-            _showErrorMessage('Please fill in all fields');
-          }
+          _azureAdB2cStore.signIn();
+          // if (_store.canLogin) {
+          //   DeviceUtils.hideKeyboard(context);
+          //   _store.login();
+          // } else {
+          //   _showErrorMessage('Please fill in all fields');
+          // }
         },
       ),
     );

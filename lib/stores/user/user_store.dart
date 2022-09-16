@@ -28,7 +28,7 @@ abstract class _UserStore with Store {
 
     // checking if user is logged in
     repository.isLoggedIn.then((value) {
-      this.isLoggedIn = value;
+      isLoggedIn = value;
     });
   }
 
@@ -55,7 +55,21 @@ abstract class _UserStore with Store {
   @computed
   bool get isLoading => loginFuture.status == FutureStatus.pending;
 
+  @observable
+  String firstName = '';
+
+  @observable
+  String lastName = '';
+
+  @observable
+  String displayName = '';
+
+  @observable
+  String email = '';
+
   // actions:-------------------------------------------------------------------
+  Future signIn() async {}
+
   @action
   Future login(String email, String password) async {
     final future = _repository.login(email, password);
@@ -63,21 +77,21 @@ abstract class _UserStore with Store {
     await future.then((value) async {
       if (value) {
         _repository.saveIsLoggedIn(true);
-        this.isLoggedIn = true;
-        this.success = true;
+        isLoggedIn = true;
+        success = true;
       } else {
         print('failed to login');
       }
     }).catchError((e) {
       print(e);
-      this.isLoggedIn = false;
-      this.success = false;
+      isLoggedIn = false;
+      success = false;
       throw e;
     });
   }
 
   logout() {
-    this.isLoggedIn = false;
+    isLoggedIn = false;
     _repository.saveIsLoggedIn(false);
   }
 

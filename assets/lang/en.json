@@ -11,6 +11,12 @@
   "home_header_label": "Home",
   "home_error": "Error",
 
+  "emr_header_label": "E-Records",
+
+  "cwf_header_label": "E-Workflow",
+
+  "opr_header_label": "E-Registration",
+
   "map": "Map",
   "signIn": "Sign In",
   "email": "Email",

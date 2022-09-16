@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:unihealth/stores/auth/azure_ad_b2c_store.dart';
 import 'package:unihealth/ui/splash/splash.dart';
 
 import '../constants/app_theme.dart';
@@ -25,6 +26,7 @@ class App extends StatelessWidget {
   final LanguageStore _languageStore = LanguageStore(getIt<Repository>());
   final UserStore _userStore = UserStore(getIt<Repository>());
   final NavStore _navStore = NavStore(getIt<Repository>());
+  final AzureAdB2cStore _azureAdB2cStore = AzureAdB2cStore(getIt<Repository>());
   App({Key? key}) : super(key: key);
 
   @override
@@ -34,6 +36,7 @@ class App extends StatelessWidget {
         Provider<ThemeStore>(create: (_) => _themeStore),
         Provider<LanguageStore>(create: (_) => _languageStore),
         Provider<NavStore>(create: (_) => _navStore),
+        Provider<AzureAdB2cStore>(create: (_) => _azureAdB2cStore),
       ],
       child: Observer(
         name: 'global-observer',

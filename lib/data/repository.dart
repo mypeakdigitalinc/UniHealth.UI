@@ -64,6 +64,11 @@ class Repository {
     return await Future.delayed(Duration(seconds: 2), () => true);
   }
 
+  Future<void> setAuthToken(String value) =>
+      _sharedPrefsHelper.saveAuthToken(value);
+
+  Future<String?> get authToken => _sharedPrefsHelper.authToken;
+
   Future<void> saveIsLoggedIn(bool value) =>
       _sharedPrefsHelper.saveIsLoggedIn(value);
 

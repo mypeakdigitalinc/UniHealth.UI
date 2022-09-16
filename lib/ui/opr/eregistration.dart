@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/locale/app_localizations.dart';
+import '../../widgets/main_app_bar_widget.dart';
 import '../../widgets/nav_bottom_widget.dart';
 import '../../widgets/nav_drawer_widget.dart';
 
@@ -22,10 +24,8 @@ class _ERegistrationState extends State<ERegistration> {
   }
 
   PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Text('E-Registration'),
-      //actions: _buildActions(context),
-    );
+    return MainAppBarWidget(
+        AppLocalizations.of(context).translate('opr_header_label'));
   }
 
   // body methods:--------------------------------------------------------------

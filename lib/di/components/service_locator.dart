@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:unihealth/stores/auth/azure_ad_b2c_store.dart';
 
 import '../../data/repository.dart';
 import '../../data/sharedpref/shared_preference_helper.dart';
@@ -45,4 +46,5 @@ Future<void> setupLocator() async {
   getIt.registerSingleton(ThemeStore(getIt<Repository>()));
   getIt.registerSingleton(UserStore(getIt<Repository>()));
   getIt.registerSingleton(NavStore(getIt<Repository>()));
+  getIt.registerSingleton(AzureAdB2cStore(getIt<Repository>()));
 }
