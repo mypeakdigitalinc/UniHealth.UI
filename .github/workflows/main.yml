@@ -1,10 +1,10 @@
 on:
   pull_request:
-    branches
+    branches:
       - main
       - master
   push:
-    branches
+    branches:
       - main
       - master
 name: "UniHealth CI/CD"
