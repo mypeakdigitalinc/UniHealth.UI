@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:mobx/mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unihealth/data/sharedpref/shared_preference_helper.dart';
 import 'package:unihealth/utils/routes/routes.dart';
 import '../../data/repository.dart';
+import '../theme/theme_store.dart';
 
 part 'azure_ad_b2c_store.g.dart';
 
@@ -18,19 +20,13 @@ abstract class _AzureAdB2cStore with Store {
   // repository instance
 
   FlutterAppAuth appAuth = const FlutterAppAuth();
+
+  final String _clientId = '2a9b537e-65a9-4e87-af66-8bf33b273d85';
+  final String _redirectUrl = 'ca.mypeak.unihealth://oauth/redirect';
   final String _baseUrl =
       'https://unihealthad.b2clogin.com/unihealthad.onmicrosoft.com';
   final String _policyName = 'B2C_1_UniHealthTestSignUpSignIn';
-  final String _clientId = '2a9b537e-65a9-4e87-af66-8bf33b273d85';
 
-  final String _redirectUrl = 'ca.mypeak.unihealth://oauth/redirect';
-  final String _discoveryURL =
-      'https://unihealthad.b2clogin.com/unihealthad.onmicrosoft.com/B2C_1_UniHealthTestSignUpSignIn/v2.0/.well-known/openid-configuration?p=B2C_1_UniHealthTestSignUpSignIn';
-  final String _authorizeUrl =
-      'https://unihealthad.b2clogin.com/unihealthad.onmicrosoft.com/B2C_1_UniHealthTestSignUpSignIn/oauth2/v2.0/authorize?p=b2c_1_unihealthtestsignupsignin';
-  final String _tokenUrl =
-      'https://unihealthad.b2clogin.com/unihealthad.onmicrosoft.com/B2C_1_UniHealthTestSignUpSignIn/oauth2/v2.0/token?p=b2c_1_unihealthtestsignupsignin';
-  String _idToken = '';
   // String _refreshToken;
   // String _accessToken;
   // String _accessTokenExpiration;
@@ -52,8 +48,11 @@ abstract class _AzureAdB2cStore with Store {
         AuthorizationTokenRequest(
           _clientId,
           _redirectUrl,
-          serviceConfiguration: AuthorizationServiceConfiguration(
-              authorizationEndpoint: _authorizeUrl, tokenEndpoint: _tokenUrl),
+          discoveryUrl: getDiscoveryUrl(),
+          // serviceConfiguration: AuthorizationServiceConfiguration(
+
+          //     authorizationEndpoint: getAuthorizeUrl(),
+          //     tokenEndpoint: getTokenUrl()),
           scopes: _scopes,
         ),
       );
@@ -66,7 +65,10 @@ abstract class _AzureAdB2cStore with Store {
   }
 
   void _processAuthTokenResponse(AuthorizationTokenResponse response) {
-    _repository.setAuthToken(response.accessToken!);
+    _repository.setAuthToken(response.accessToken!.replaceAll("\"", ""));
+
+    //ThemeStore _themeStore = Provider.of<ThemeStore>(getConte);
+
     // setState(() {
     //   _accessToken = response.accessToken;
     //   _refreshToken = response.refreshToken;
@@ -99,7 +101,6 @@ abstract class _AzureAdB2cStore with Store {
 
   // String _decodeBase64(String str) {
   //   String output = str.replaceAll('-', '+').replaceAll('_', '/');
-
   //   switch (output.length % 4) {
   //     case 0:
   //       break;
@@ -118,37 +119,49 @@ abstract class _AzureAdB2cStore with Store {
   @action
   Future<void> signOut() async {
     try {
-      //for some reason the API works differently on iOS and Android
-      Map<String, String> additionalParameters = {
-        "id_token_hint": _idToken,
-        "post_logout_redirect_uri": _redirectUrl
-      };
-      if (Platform.isAndroid) {
-        //works on Android but is missing p parameter when redirected back to authorize on iOS
-        additionalParameters = {
-          "id_token_hint": _idToken,
-          "post_logout_redirect_uri": _redirectUrl
-        };
-      } else if (Platform.isIOS) {
-        //missing p parameter when redirected back to authorize on iOS so the below difference
-        additionalParameters = {
-          "id_token_hint": _idToken,
-          "post_logout_redirect_uri": _redirectUrl,
-          'p': 'B2C_1_UniHealthTestSignUpSignIn'
-        };
-      }
       await appAuth.authorizeAndExchangeCode(
         AuthorizationTokenRequest(
           _clientId,
           _redirectUrl,
           promptValues: ['login'],
-          discoveryUrl: _discoveryURL,
-          additionalParameters: additionalParameters,
+          discoveryUrl: getDiscoveryUrl(),
+          additionalParameters: getSignOutAdditionalParameters(),
           scopes: _scopes,
         ),
       );
     } catch (e) {
       print(e);
     }
+  }
+
+  getSignOutAdditionalParameters() {
+    String idToken = _repository.authToken as String;
+    Map<String, String> additionalParameters = {};
+    additionalParameters.putIfAbsent("id_token_hint", () => idToken);
+    additionalParameters.putIfAbsent(
+        "post_logout_redirect_uri", () => _redirectUrl);
+    if (Platform.isAndroid) {
+    } else if (Platform.isIOS) {
+      additionalParameters.putIfAbsent('p', () => _policyName);
+    }
+    return additionalParameters;
+  }
+
+  getDiscoveryUrl() {
+    final String discoveryUrl =
+        '$_baseUrl/$_policyName/v2.0/.well-known/openid-configuration?p=$_policyName';
+    return discoveryUrl;
+  }
+
+  getAuthorizeUrl() {
+    final String authorizeUrl =
+        '$_baseUrl/$_policyName/oauth2/v2.0/authorize?p=$_policyName';
+    return authorizeUrl;
+  }
+
+  getTokenUrl() {
+    final String tokenUrl =
+        '$_baseUrl/$_policyName/oauth2/v2.0/token?p=$_policyName';
+    return tokenUrl;
   }
 }

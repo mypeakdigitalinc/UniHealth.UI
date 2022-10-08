@@ -47,7 +47,8 @@ class App extends StatelessWidget {
             theme: _themeStore.darkMode
                 ? AppThemeData.darkThemeData
                 : AppThemeData.lightThemeData,
-            routes: Routes.routes,
+            initialRoute: '/',
+            onGenerateRoute: Routes.onGenerateRoute,
             locale: Locale(_languageStore.locale),
             supportedLocales: _languageStore.supportedLanguages
                 .map((language) => Locale(language.locale!, language.code))
@@ -62,7 +63,6 @@ class App extends StatelessWidget {
               // Built-in localization of basic text for Cupertino widgets
               GlobalCupertinoLocalizations.delegate,
             ],
-            home: const SplashScreen(),
           );
         },
       ),

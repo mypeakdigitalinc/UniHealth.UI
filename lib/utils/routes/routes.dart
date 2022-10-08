@@ -42,4 +42,72 @@ class Routes {
     eregistration: (BuildContext context) => const ERegistration(),
     eworkflow: (BuildContext context) => const EWorkflowScreen(),
   };
+
+  static Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {
+    late Route<dynamic> pageRoute;
+    switch (routeSettings.name) {
+      case login:
+        pageRoute =
+            MaterialPageRoute(builder: (BuildContext context) => LoginScreen());
+        break;
+      case logout:
+        pageRoute = MaterialPageRoute(
+            builder: (BuildContext context) => const LogoutScreen());
+        break;
+      case home:
+        pageRoute = MaterialPageRoute(
+            builder: (BuildContext context) => const HomeScreen());
+        break;
+      case profile:
+        pageRoute = MaterialPageRoute(
+            builder: (BuildContext context) => const ProfileScreen());
+        break;
+      case aboutus:
+        pageRoute = MaterialPageRoute(
+            builder: (BuildContext context) => const AboutUsScreen());
+        break;
+      case settings:
+        pageRoute = MaterialPageRoute(
+            builder: (BuildContext context) => const SettingsScreen());
+        break;
+      case constactus:
+        pageRoute = MaterialPageRoute(
+            builder: (BuildContext context) => const ContactUsScreen());
+        break;
+      case erecords:
+        pageRoute = MaterialPageRoute(
+            builder: (BuildContext context) => const ERecordsScreen());
+        break;
+      case eregistration:
+        pageRoute = MaterialPageRoute(
+            builder: (BuildContext context) => const ERegistration());
+        break;
+      case eworkflow:
+        pageRoute = MaterialPageRoute(
+            builder: (BuildContext context) => const EWorkflowScreen());
+        break;
+      case '/':
+      case splash:
+        pageRoute = MaterialPageRoute(
+            builder: (BuildContext context) => const SplashScreen());
+        break;
+      default:
+        pageRoute = _errorRoute();
+        break;
+    }
+    return pageRoute;
+  }
+
+  static Route<dynamic> _errorRoute() {
+    return MaterialPageRoute(builder: (_) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Error"),
+        ),
+        body: const Center(
+          child: Text("Error"),
+        ),
+      );
+    });
+  }
 }
