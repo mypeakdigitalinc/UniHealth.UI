@@ -34,11 +34,11 @@ jobs:
     - name: Get Pub Dependencies
       run: flutter pub get
 
-    - name: Flutter Analyze
-      run: flutter analyze
+    # - name: Flutter Analyze
+    #   run: flutter analyze
 
-    - name: Flutter Test
-      run: flutter test
+    # - name: Flutter Test
+    #   run: flutter test
 
   android:
     name: Android CI/CD
