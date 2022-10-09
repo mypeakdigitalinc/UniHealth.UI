@@ -17,29 +17,28 @@ env:
   PATH_TO_IPA: 'build/ios/ipa/unihealth-release.ipa'
 
 jobs:
-  code-analysis-and-testing:
-    name: Code Analysis and Testing
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v1
+  # code-analysis-and-testing:
+  #   name: Code Analysis and Testing
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 30
+  #   steps:
+  #   - name: Checkout Repository
+  #     uses: actions/checkout@v1
 
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        channel: ${{ env.FLUTTER_CHANNEL }}
-        # flutter-version: ${{ env.FLUTTER_VERSION }}
+  #   - name: Setup Flutter
+  #     uses: subosito/flutter-action@v2
+  #     with:
+  #       channel: ${{ env.FLUTTER_CHANNEL }}
+  #       # flutter-version: ${{ env.FLUTTER_VERSION }}
 
-    - name: Get Pub Dependencies
-      run: flutter pub get
+  #   - name: Get Pub Dependencies
+  #     run: flutter pub get
 
-    - name: Flutter Analyze
-      run: flutter analyze
+  #   - name: Flutter Analyze
+  #     run: flutter analyze
 
-    - name: Flutter Test
-      run: flutter test
-
+  #   - name: Flutter Test
+  #     run: flutter test
   android:
     name: Android CI/CD
     needs: code-analysis-and-testing
