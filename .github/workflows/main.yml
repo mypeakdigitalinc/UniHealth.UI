@@ -64,6 +64,17 @@ jobs:
         name: release-apk
         path: ${{ env.PATH_TO_APK }}
 
+    - name: Distribute to AppCenter
+      uses: wzieba/AppCenter-Github-Action@v1
+      with:
+        appName: MyPEAK/UniHealth_Android
+        token: ${{secrets.APP_CENTER_TOKEN}}
+        group: Collaborators
+        file: ${{ env.PATH_TO_APK }}
+        notifyTesters: false
+        debug: false
+  # 785ceeb16caf892dcc43a615bfb0227ab905b0aa
+
   # build:
   #   name: Build & Release
   #   runs-on: macos-latest
