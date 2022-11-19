@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
               : Center(child: _buildRightSide()),
           Observer(
             builder: (context) {
-              return _store.success
+              return _azureAdB2cStore.isLoggedIn
                   ? navigate(context)
                   : _showErrorMessage(_store.errorStore.errorMessage);
             },

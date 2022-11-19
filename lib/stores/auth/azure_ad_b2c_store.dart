@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unihealth/data/sharedpref/shared_preference_helper.dart';
 import 'package:unihealth/utils/routes/routes.dart';
 import '../../data/repository.dart';
+import '../../data/sharedpref/constants/preferences.dart';
 import '../theme/theme_store.dart';
 
 part 'azure_ad_b2c_store.g.dart';
@@ -18,6 +19,9 @@ abstract class _AzureAdB2cStore with Store {
   final Repository _repository;
   _AzureAdB2cStore(Repository repository) : _repository = repository {}
   // repository instance
+
+  @observable
+  bool isLoggedIn = false;
 
   FlutterAppAuth appAuth = const FlutterAppAuth();
 
@@ -67,6 +71,11 @@ abstract class _AzureAdB2cStore with Store {
   void _processAuthTokenResponse(AuthorizationTokenResponse response) {
     _repository.setAuthToken(response.accessToken!.replaceAll("\"", ""));
 
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setBool(Preferences.is_logged_in, true);
+    });
+
+    isLoggedIn = true;
     //ThemeStore _themeStore = Provider.of<ThemeStore>(getConte);
 
     // setState(() {
