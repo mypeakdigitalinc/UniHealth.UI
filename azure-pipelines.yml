@@ -51,18 +51,18 @@ stages:
         versionSpec: '11'
         jdkArchitectureOption: 'x64'
         jdkSourceOption: 'PreInstalled'
-        
+
     - task: FlutterBuild@0
       displayName: "Build Application Android"
       inputs:
         target: 'aab'
         projectDirectory: '$(Build.SourcesDirectory)'
 
-    - task: FlutterTest@0
-      displayName: "Test Application Android"
-      inputs:
-        generateCodeCoverageReport: true
-        projectDirectory: '$(Build.SourcesDirectory)' 
+    # - task: FlutterTest@0
+    #   displayName: "Test Application Android"
+    #   inputs:
+    #     generateCodeCoverageReport: true
+    #     projectDirectory: '$(Build.SourcesDirectory)' 
 
     - task: CopyFiles@2
       displayName: "Copy artifact to staging directory"
