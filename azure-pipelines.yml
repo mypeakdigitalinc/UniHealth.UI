@@ -68,7 +68,7 @@ stages:
       displayName: "Copy artifact to staging directory"
       inputs:
         sourceFolder: '$(Agent.BuildDirectory)'
-        contents: '**/bundle/**'
+        contents: '**/flutter-apk/**'
         targetFolder: '$(Build.StagingDirectory)'
         flattenFolders: true
 
@@ -76,6 +76,6 @@ stages:
       displayName: "Publish Android aab file"
       inputs:
         PathToPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'AAB'
+        ArtifactName: 'apk'
         publishLocation: 'Container'  
       
