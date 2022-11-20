@@ -29,7 +29,7 @@ stages:
     - task: Bash@3
       name: copyconfig
       displayName: Copy config files
-      input:
+      inputs:
         targetType: 'inline'
         script:
           cp $(keyprop.secureFilePath) $(Build.SourcesDirectory)/android/key.properties
