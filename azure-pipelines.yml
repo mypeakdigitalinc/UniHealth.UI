@@ -37,7 +37,7 @@ stages:
           
           echo "key.properties copied to $(Build.SourcesDirectory)/android/key.properties"
           echo "key.jks copied to $(Build.SourcesDirectory)/android/app/key.jks"
-          
+
     - task: FlutterInstall@0
       displayName: "Install Flutter SDK"
       inputs:
@@ -45,6 +45,13 @@ stages:
         channel: 'stable'
         version: 'latest'
 
+    - task: JavaToolInstaller@0
+      displayName: 'Install Java 11'
+      inputs:
+        versionSpec: '11'
+        jdkArchitectureOption: 'x64'
+        jdkSourceOption: 'PreInstalled'
+        
     - task: FlutterBuild@0
       displayName: "Build Application Android"
       inputs:
