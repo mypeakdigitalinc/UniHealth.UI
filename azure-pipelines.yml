@@ -31,12 +31,13 @@ stages:
       displayName: Copy config files
       inputs:
         targetType: 'inline'
-        script:
+        script: |
           cp $(keyprop.secureFilePath) $(Build.SourcesDirectory)/android/key.properties
-          cp $(key.secureFilePath) $(Build.SourcesDirectory)/android/key.jks
+          cp $(key.secureFilePath) $(Build.SourcesDirectory)/android/app/key.jks
+          
           echo "key.properties copied to $(Build.SourcesDirectory)/android/key.properties"
-          echo "key.jks copied to $(Build.SourcesDirectory)/android/key.jks"
-
+          echo "key.jks copied to $(Build.SourcesDirectory)/android/app/key.jks"
+          
     - task: FlutterInstall@0
       displayName: "Install Flutter SDK"
       inputs:
