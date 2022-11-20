@@ -55,7 +55,7 @@ stages:
     - task: FlutterBuild@0
       displayName: "Build Application Android"
       inputs:
-        target: 'aab'
+        target: 'apk'
         projectDirectory: '$(Build.SourcesDirectory)'
 
     # - task: FlutterTest@0
