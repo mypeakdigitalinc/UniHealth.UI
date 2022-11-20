@@ -33,9 +33,9 @@ stages:
         targetType: 'inline'
         script:
           cp $(keyprop.secureFilePath) $(Build.SourcesDirectory)/android/key.properties
-          echo "key.properties copied to $(Build.SourcesDirectory)/android/key.properties"
           cp $(key.secureFilePath) $(Build.SourcesDirectory)/android/key.jks
-          echo "key.jks copied to $(Build.SourcesDirectory)/android/key.jsk"
+          echo "key.properties copied to $(Build.SourcesDirectory)/android/key.properties"
+          echo "key.jks copied to $(Build.SourcesDirectory)/android/key.jks"
 
     - task: FlutterInstall@0
       displayName: "Install Flutter SDK"
