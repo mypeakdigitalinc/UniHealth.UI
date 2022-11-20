@@ -56,7 +56,7 @@ stages:
         generateCodeCoverageReport: true
         projectDirectory: '$(Build.SourcesDirectory)' 
 
-    - task: CopyFile@2
+    - task: CopyFiles@2
       displayName: "Copy artifact to staging directory"
       inputs:
         sourceFolder: '$(Agent.BuildDirectory)'
